@@ -324,6 +324,6 @@ public static class ZodiacIDCard
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine("Press any key to return to main menu...");
         Console.ResetColor();
-        Console.ReadKey();
+        Console.ReadLine();
     }
 }
