@@ -1,342 +1,290 @@
-﻿using System;
+using System;
 using System.Threading;
 
-public static class Zodiac
+class ZodiacGame
 {
-    // SLOW PRINT FUNCTION (3–5 sec)
-    static void SlowPrint(string text, int delay = 180)
+    // ==============================
+    // LOADING ANIMATION
+    // ==============================
+    static void Loading(string text)
     {
-        string[] lines = text.Split('\n');
-        foreach (string line in lines)
+        Console.Clear();
+        Console.Write(text);
+        for (int i = 0; i < 6; i++)
         {
-            Console.WriteLine(line);
-            Thread.Sleep(delay);
+            Thread.Sleep(300);
+            Console.Write(".");
         }
+        Console.Clear();
     }
 
-    public static void Run()
+    // ==============================
+    // CARD UI HELPERS
+    // ==============================
+    static void CardTop(int w)
     {
-        Console.WriteLine("====== ZODIAC SIGN VIEWER ======\n");
+        Console.WriteLine("╔" + new string('═', w - 2) + "╗");
+    }
+
+    static void CardBottom(int w)
+    {
+        Console.WriteLine("╚" + new string('═', w - 2) + "╝");
+    }
+
+    static void Divider(int w)
+    {
+        Console.WriteLine("╠" + new string('═', w - 2) + "╣");
+    }
+
+    static void Line(int w)
+    {
+        Console.WriteLine("║".PadRight(w - 1) + "║");
+    }
+
+    static void Text(string txt, int w)
+    {
+        if (txt.Length > w - 4)
+            txt = txt.Substring(0, w - 4);
+
+        Console.WriteLine("║  " + txt.PadRight(w - 4) + "║");
+    }
+
+    // ==============================
+    // ZODIAC CARD DISPLAY
+    // ==============================
+    static void ShowCard(string name, string element, string description, string[] symbol)
+    {
+        int width = 75;
+        CardTop(width);
+        Text("ZODIAC IDENTIFICATION CARD", width);
+        Divider(width);
+        
+        // Symbol Box
+        foreach (string line in symbol)
+            Text(line, width);
+
+        Line(width);
+
+        Text("NAME: " + name, width);
+        Text("ELEMENT: " + element, width);
+
+        Line(width);
+
+        Text("DESCRIPTION:", width);
+        Text(description, width);
+
+        CardBottom(width);
+    }
+
+    // ==============================
+    // MAIN PROGRAM
+    // ==============================
+    static void Main()
+    {
+        Console.Title = "Zodiac ID Card Viewer";
+
+        Console.WriteLine("================================");
+        Console.WriteLine("     ZODIAC SIGN VIEWER GAME     ");
+        Console.WriteLine("================================\n");
+
         Console.Write("Enter your zodiac sign: ");
         string zodiac = (Console.ReadLine() ?? "").Trim().ToLower();
 
-        Console.Clear();
+        Loading("Generating Zodiac Card");
 
         switch (zodiac)
         {
             case "aries":
-                SlowPrint(@"
-            ██████                          ██████            
-          ███████████                    ████████████         
-        ███        ███                  ███        ███        
-       ███          ███                ███          ███       
-       ██            ███              ███            ██       
-       ██             ███            ███             ██       
-       ███             ███          ███             ███       
-        ████           ███          ███           ████        
-          █████         ███        ███         █████          
-                        ███        ███                        
-                         ███      ███                         
-                         ███      ███                         
-                          ███    ███                          
-                           ██    ██                           
-                           ███  ███                           
-                            ██  ██                            
-                            ██████                            
-                             ████                             
-                              ██                              
-                              ██ ");
-                Console.WriteLine("\n===== ARIES =====");
-                Console.WriteLine("Energetic, assertive, and bold. Aries are natural leaders — full of drive and courage.");
+                ShowCard(
+                    "ARIES",
+                    "FIRE",
+                    "Energetic, bold, and courageous. Natural leaders full of drive.",
+                    new string[]
+                    {
+                        "      ██████      ",
+                        "   ███████████    ",
+                        " ███       ███    ",
+                        " ██         ██    ",
+                        "  ████   ████     ",
+                        "    ███████       "
+                    });
                 break;
 
             case "taurus":
-                SlowPrint(@"
-        ██████                                  ██████        
-        █████████                            █████████        
-          █████████                        █████████          
-               █████                      █████               
-                █████                    █████                
-                 █████                  █████                 
-                  █████                █████                  
-                  ██████              ██████                  
-                   █████████      █████████                   
-                     ████████████████████                     
-                     █████████████████████                    
-                  ████████          ████████                  
-                 ██████                ██████                 
-                █████                    █████                
-               █████                      █████               
-              █████                        █████              
-             █████                          █████             
-             █████                          █████             
-              ████                          ████              
-              █████                        █████              
-               █████                      █████               
-                ██████                  ██████                
-                 ███████              ███████                 
-                   ███████████  ███████████                   
-                      ██████████████████                      
-                         ████████████                         
-                                                              ");
-                Console.WriteLine("\n===== TAURUS =====");
-                Console.WriteLine("Reliable, patient, and practical. Taurus values stability, loyalty, and the comforts of life.");
+                ShowCard(
+                    "TAURUS",
+                    "EARTH",
+                    "Reliable and patient. Taurus values stability and comfort.",
+                    new string[]
+                    {
+                        "  ██████    ██████  ",
+                        " █████████████████ ",
+                        "   █████████████   ",
+                        "       █████       ",
+                        "   █████████████   ",
+                        " █████████████████ "
+                    });
                 break;
 
             case "gemini":
-                SlowPrint(@"
-       █                                                █     
-       ███████                                     ██████     
-         ███████████████                 ████████████████     
-               █████████████████████████████████████          
-                   █████████████████████████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                   █████               █████                  
-                  ███████████████████████████                 
-          █████████████████████████████████████████           
-      ████████████                           ███████████      
-      ████                                          ████");
-                Console.WriteLine("\n===== GEMINI =====");
-                Console.WriteLine("Versatile, communicative, and curious. Gemini loves variety, intellectual stimulation, and social connection.");
+                ShowCard(
+                    "GEMINI",
+                    "AIR",
+                    "Curious, expressive, and adaptable. Loves ideas and communication.",
+                    new string[]
+                    {
+                        " ████      ████ ",
+                        " ████      ████ ",
+                        " ██████████████ ",
+                        " ████      ████ ",
+                        " ████      ████ "
+                    });
                 break;
 
             case "cancer":
-                SlowPrint(@"
-                      ██████████████████                      
-                   █████████████████████████                  
-                 ██████                 ██████                
-               █████████                   █████              
-              ████████████                   █████            
-             ████      ████                    ██             
-            ████        ████             ████                 
-            ███         ████          ██████████              
-            ████        ████        █████    █████            
-             █████    █████        ████        ████           
-              ███████████          ████         ███           
-                 ██████            ████        ████           
-                                    ████      ████            
-             █████                   █████████████            
-              ██████                   █████████              
-                ███████                  ██████               
-                   ██████████     ██████████                  
-                      ███████████████████                      ");
-                Console.WriteLine("\n===== CANCER =====");
-                Console.WriteLine("Emotional, nurturing, and protective. Cancer cares deeply about family, home, and close bonds.");
+                ShowCard(
+                    "CANCER",
+                    "WATER",
+                    "Emotional, caring, and protective. Deeply connected to home.",
+                    new string[]
+                    {
+                        "   ███████████   ",
+                        " █████       ██  ",
+                        " ███           ",
+                        " ███           ",
+                        " █████       ██ ",
+                        "   ███████████  "
+                    });
                 break;
 
             case "leo":
-                SlowPrint(@"
-                           ███████████████                    
-                        ██████        ███████                 
-                       ████              █████                
-                      ████                 ████               
-                     ████                   ████              
-                     ███                     ███              
-                     ███                     ████             
-                     ███                     ████             
-                     ████                    ███              
-                      ███                   ████              
-                      ████                  ████              
-                  ████ ████                ████               
-              ██████████████              ████               
-            ████        █████            ████                
-           ███            ███           █████                
-           ██              ███          ████                 
-          ███              ███         ████                  
-          ███              ███        ████                   
-           ███             ███       ████                    
-           ████           ███       ████                     
-             ████      █████        ████                     
-               ███████████         ████                      
-                                   ████                      
-                                   ████         ██           
-                                    ██████   ██████          
-                                     ████████████            ");
-                Console.WriteLine("\n===== LEO =====");
-                Console.WriteLine("Charismatic, confident, and natural-born leaders. Leo loves creativity, recognition and being in the spotlight.");
+                ShowCard(
+                    "LEO",
+                    "FIRE",
+                    "Confident and charismatic. Loves attention and creativity.",
+                    new string[]
+                    {
+                        "    ████████    ",
+                        "  ████      ██  ",
+                        " ██            ",
+                        " ██            ",
+                        "  ████      ██ ",
+                        "    ████████   "
+                    });
                 break;
 
             case "virgo":
-                SlowPrint(@"
-                        ███   █████   █████                             
-                         ███ ██  ██  ██  ██                             
-                          ████    ████   ██                             
-                          ███     ███    ██  ████                       
-                          ██      ██     ██ █████                       
-                          ██      ██     ████   ██                      
-                          ██      ██     ███    ██                      
-                          ██      ██     ███    ██                      
-                          ██      ██     ██     ██                      
-                          ██      ██     ██     ██                      
-                          ██      ██     ██    ██                       
-                          ██      ██     ██   ██                        
-                          ██      ██     ██  ██                         
-                          ██      ██     █████                          
-                                         ███                            
-                                     ███████                            
-                                    ██    ███                           
-                                           ██                            ");
-                Console.WriteLine("\n===== VIRGO =====");
-                Console.WriteLine("Detail-oriented, analytical, and practical. Virgo excels at organization, problem-solving and realism.");
+                ShowCard(
+                    "VIRGO",
+                    "EARTH",
+                    "Practical, analytical, and detail-oriented perfectionist.",
+                    new string[]
+                    {
+                        " ██  ██  ██ ",
+                        " ██  ██  ██ ",
+                        " ██  ██  ██ ",
+                        " ██  ██  ██ ",
+                        "   ███████  "
+                    });
                 break;
 
             case "libra":
-                SlowPrint(@"
-                               ██████████                               
-                             ███        ███                             
-                            ███          ███                            
-                            ██            ██                            
-                            ███           ██                            
-                             ██          ██                             
-                       ██████████      ██████████                       
-                       ██████████      ██████████                       
-                                                   
-                                                   
-                       ██████████████████████████                       
-                       ██████████████████████████");
-                Console.WriteLine("\n===== LIBRA =====");
-                Console.WriteLine("Diplomatic, fair-minded, and charming. Libra seeks balance, harmony and values relationships and beauty.");
+                ShowCard(
+                    "LIBRA",
+                    "AIR",
+                    "Balanced, fair, and charming. Seeks harmony and beauty.",
+                    new string[]
+                    {
+                        "   ███████   ",
+                        " ███     ███ ",
+                        " ███     ███ ",
+                        " ███████████",
+                        " ███████████"
+                    });
                 break;
 
             case "scorpio":
-                SlowPrint(@"
-                        ███   ████    ████                              
-                         ██  ██  ██  █  ██                              
-                          ████   ████   ██                              
-                          ███    ███    ██                              
-                          ██     ███    ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██     ██                              
-                          ██     ██      ██                             
-                          ██     ██      ███   █                        
-                                           ██████                       
-                                               █    ");
-                Console.WriteLine("\n===== SCORPIO =====");
-                Console.WriteLine("Intense, passionate, and resourceful. Scorpio feels deeply — mysterious and powerful.");
+                ShowCard(
+                    "SCORPIO",
+                    "WATER",
+                    "Intense and mysterious. Deep emotions and strong will.",
+                    new string[]
+                    {
+                        " ██ ██ ██ ",
+                        " ██ ██ ██ ",
+                        " ██ ██ ██ ",
+                        " ██ ██ ██ ",
+                        " ██ ██ ███"
+                    });
                 break;
 
             case "sagittarius":
-                SlowPrint(@"
-                                  ████████████████████                  
-                                   ███████████████████                  
-                                              ████████                  
-                                            ██████████                  
-                                          ███████ ████                  
-                                         ██████   ████                  
-                                       ██████     ████                  
-                       ████          ██████       ████                  
-                       █████       ███████        ████                  
-                         █████   ███████          ████                  
-                           ███████████                                  
-                             ███████                                    
-                            ████████                                    
-                          ████████████                                  
-                        ██████    █████                                 
-                       █████        █████                                
-                     █████            ███                                
-                   █████                                                 
-                 █████                                                   
-                  ██                                                     ");
-                Console.WriteLine("\n===== SAGITTARIUS =====");
-                Console.WriteLine("Adventurous, optimistic, and freedom-loving. Sagittarius thrives on exploration and big ideas.");
+                ShowCard(
+                    "SAGITTARIUS",
+                    "FIRE",
+                    "Optimistic explorer. Loves freedom and adventure.",
+                    new string[]
+                    {
+                        "     ██████ ",
+                        "       ████ ",
+                        " ████    ██ ",
+                        "   ███████  ",
+                        "     ████   "
+                    });
                 break;
 
             case "capricorn":
-                SlowPrint(@"
-                ████████           █████████                            
-              ███████████         ████████████                          
-             █████    ████       ████     █████                         
-                       ████     ████       ████                         
-                        ████   ████        ████                         
-                        █████ ████         ████                         
-                        ██████████         ████                         
-                         ████████          ████                         
-                         ████████          ████                         
-                         ████████           ████                        
-                         ████████           ████                        
-                         ████████           ███████████████            
-                          ██████            ███████      ███          
-                          ██████              ████        ███         
-                           ████               ████        ███         
-                           ████               █████      ███          
-                           ████              ██████████████           
-                                          ████                
-                                         ████                       
-                                        ███                          
-                                      ████                           
-                                   █████
-                               ███████      ");
-                Console.WriteLine("\n===== CAPRICORN =====");
-                Console.WriteLine("Disciplined, ambitious, and practical. Capricorn works steadily toward long-term success.");
+                ShowCard(
+                    "CAPRICORN",
+                    "EARTH",
+                    "Ambitious and disciplined. Focused on long-term success.",
+                    new string[]
+                    {
+                        " ████████ ",
+                        " ██    ██ ",
+                        " ██    ██ ",
+                        " ██    ██ ",
+                        " ████████ "
+                    });
                 break;
 
             case "aquarius":
-                SlowPrint(@"
-                          ████         ███         ████                
-                       ███████      ███████     ███████                
-                     ██████████  ██████████  ███████████               
-                  ███████  ██████████   █████████   ████              
-                ██████     ███████      ██████       ███              
-                ███         ███         ████         ███              
-                                                                        
-                           ███         ███         ████               
-                        ██████      ███████      ██████               
-                     ██████████   █████████   ██████████              
-                  ███████  ██████████  ██████████   ████              
-                ██████     ███████      ███████      ███              
-                ███         ████        ████         ███ ");
-                Console.WriteLine("\n===== AQUARIUS =====");
-                Console.WriteLine("Innovative, humanitarian, and independent. Aquarius thinks outside the box and values originality.");
+                ShowCard(
+                    "AQUARIUS",
+                    "AIR",
+                    "Innovative thinker. Independent and humanitarian.",
+                    new string[]
+                    {
+                        " ██  ██  ",
+                        " ███████ ",
+                        " ██  ██  ",
+                        " ███████ ",
+                        " ██  ██  "
+                    });
                 break;
 
             case "pisces":
-                SlowPrint(@"
-                    █████                      █████                    
-                     █████                    █████                     
-                      █████                  █████                      
-                       █████                ████                        
-                         ████              ████                         
-                          ████            ████                          
-                          █████          █████                          
-                           ████          ████                           
-                           ████          ████                           
-                            ████        ████                            
-                     ██████████████████████████████                     
-                    ████████████████████████████████                    
-                           ██████████████████                           
-                            ████        ████                            
-                           ████          ████                           
-                           ████          ████                           
-                          ████            ████                          
-                          ████            ████                          
-                         ████              ████                         
-                         ███                ███                         
-                        ███                  ███  ");
-                Console.WriteLine("\n===== PISCES =====");
-                Console.WriteLine("Compassionate, intuitive, and dreamy. Pisces connects deeply with emotion and imagination.");
+                ShowCard(
+                    "PISCES",
+                    "WATER",
+                    "Dreamy and compassionate. Strong intuition and empathy.",
+                    new string[]
+                    {
+                        " ███   ███ ",
+                        "  ███ ███  ",
+                        "   █████   ",
+                        "  ███ ███  ",
+                        " ███   ███ "
+                    });
                 break;
 
             default:
-                Console.WriteLine("Unknown zodiac sign. Try again (e.g. Aries, Taurus, Gemini...).");
+                Console.WriteLine("Unknown zodiac sign.");
                 break;
         }
 
-        Console.WriteLine("\n\nPress any key to exit...");
+        Console.WriteLine("\nPress any key to exit...");
         Console.ReadKey();
     }
 }
+
