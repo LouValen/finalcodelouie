@@ -32,7 +32,7 @@ class Program
                     break;
 
                 case "2":
-                    Zodiac.Run();
+                    ZodiacIDCard.Run();
                     break;
 
                 case "3":
