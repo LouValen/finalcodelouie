@@ -81,6 +81,6 @@ public static class MBTI
         }
 
         Console.WriteLine("\nPress any key to return...");
-        Console.ReadKey();
+        Console.ReadLine();
     }
 }
